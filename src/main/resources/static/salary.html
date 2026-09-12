@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finance Tracker Application</title>
+
+    <link rel="stylesheet" href="css/salary.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="logos">
+            <img src="images/expenses.png" alt="Logo">
+            <h1>Finance Tracker</h1>
+    </div>
+
+        <div class="links">
+            <p id="userName">User</p>
+            <button type="button" id="dashboardBtn">
+                <img src="images/dashboard.png" alt="Dashboard">
+                <span>Dashboard</span>
+            </button>
+            <button type="button" id="logoutBtn">
+                <img src="/images/logout.png" alt="Logout Icon">
+                <span>Logout</span>
+            </button>
+        </div>
+    </header>
+
+
+    <main class="financial-container">
+
+        <!-- Salary Card -->
+        <section class="salary-card">
+
+            <div>
+                <h2>Monthly Salary</h2>
+
+                <p id="salaryAmount">₹0</p>
+            </div>
+
+            <button id="editSalaryBtn">
+                Edit Salary
+            </button>
+
+        </section>
+
+
+        <!-- Expense vs Salary -->
+        <section class="financial-chart-card">
+
+            <h2>Salary vs Expenses</h2>
+
+            <div class="chart-container">
+
+                <div class="financial-summary">
+
+        <div class="summary-item">
+            <span>Expenses</span>
+            <strong id="expenseAmount">₹0</strong>
+        </div>
+
+        <div class="summary-item">
+            <span>Remaining Balance</span>
+            <strong id="remainingAmount">₹0</strong>
+        </div>
+
+    </div>
+
+                <canvas id="financialChart"></canvas>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Salary Dialog -->
+    <dialog id="salaryDialog">
+
+        <h2>Set Monthly Salary</h2>
+
+        <input
+            type="number"
+            id="salaryInput"
+            placeholder="Enter salary"
+            min="0"
+            step="0.01"
+        >
+
+        <div class="dialog-buttons">
+
+            <button id="cancelSalaryBtn">
+                Cancel
+            </button>
+
+            <button id="saveSalaryBtn">
+                Save
+            </button>
+
+        </div>
+
+    </dialog>
+
+
+    <script src="js/salary.js"></script>
+
+</body>
+
+</html>

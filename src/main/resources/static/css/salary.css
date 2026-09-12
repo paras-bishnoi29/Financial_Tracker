@@ -1,0 +1,577 @@
+/* ================================
+   RESET
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   BODY
+================================ */
+
+body {
+    min-height: 100vh;
+    padding: 110px 30px 80px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(80, 80, 255, 0.18), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(0, 220, 180, 0.12), transparent 35%),
+        linear-gradient(135deg, #050509, #0b0b12 45%, #050507);
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    overflow-x: hidden;
+}
+
+
+/* ================================
+   BACKGROUND GLOW
+================================ */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: rgba(90, 80, 255, 0.07);
+
+    filter: blur(100px);
+
+    top: -200px;
+    left: -150px;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    background: rgba(0, 220, 180, 0.05);
+
+    filter: blur(100px);
+
+    bottom: -200px;
+    right: -150px;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* ================================
+   TOP BAR
+================================ */
+
+.topbar {
+    position: fixed;
+    top: 20px;
+    left: 30px;
+    right: 30px;
+
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+
+    background: rgba(10, 12, 30, 0.55);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.3);
+
+}
+
+.topbar h1 {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.logos{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logos img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+button img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.links{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.back-btn {
+    text-decoration: none;
+
+    padding: 8px 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.1);
+
+    color: white;
+
+    transition: 0.25s ease;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+
+    background: rgba(255, 255, 255, 0.17);
+
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* ================================
+   MAIN CONTAINER
+================================ */
+
+.financial-container {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    margin-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 40px;
+}
+
+
+/* ================================
+   SALARY CARD
+================================ */
+
+.salary-card {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 25px;
+
+    border: 1px solid rgba(150, 160, 255, 0.25);
+    border-radius: 20px;
+
+    background: rgba(18, 23, 65, 0.42);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.3);
+
+    transition: 0.3s ease;
+}
+
+.salary-card:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(140, 155, 255, 0.5);
+
+    box-shadow:
+        0 15px 45px rgba(70, 90, 255, 0.13);
+}
+
+.salary-card h2 {
+    margin-bottom: 10px;
+
+    color: #9fa3b8;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#salaryAmount {
+    color: white;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+button {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+
+    padding: 9px 14px;
+
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    background: rgba(255, 255, 255, 0.17);
+
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#editSalaryBtn {
+    padding: 10px 16px;
+
+    background: rgba(90, 105, 230, 0.35);
+}
+
+#editSalaryBtn:hover {
+    background: rgba(100, 120, 255, 0.5);
+
+    box-shadow:
+        0 0 18px rgba(80, 100, 255, 0.2);
+}
+
+
+/* ================================
+   FINANCIAL CHART CARD
+================================ */
+
+.financial-chart-card {
+    min-height: 500px;
+
+    padding: 45px;
+
+    border: 1px solid rgba(150, 160, 255, 0.25);
+    border-radius: 20px;
+
+    background: rgba(12, 16, 45, 0.42);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.3);
+}
+
+.financial-chart-card h2 {
+    margin-bottom: 20px;
+
+    color: white;
+
+    font-size: 22px;
+    text-align: center;
+}
+
+
+/* ================================
+   CHART + SUMMARY
+================================ */
+
+
+
+.chart-container {
+    margin-left: 150px;
+    width: 100%;
+    height: 420px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-container {
+    width: 120%;
+    height: 120%;
+}
+
+
+
+/* ================================
+   FINANCIAL SUMMARY
+================================ */
+
+.financial-summary {
+    display: flex;
+    flex-direction: column;
+
+    gap: 30px;
+
+    min-width: 220px;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    padding: 18px 20px;
+
+    border-left: 3px solid rgba(120, 135, 255, 0.7);
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    transition: 0.25s ease;
+}
+
+.summary-item:hover {
+    background: rgba(255, 255, 255, 0.07);
+
+    transform: translateX(4px);
+}
+
+.summary-item span {
+    color: rgba(255, 255, 255, 0.6);
+
+    font-size: 14px;
+}
+
+.summary-item strong {
+    color: white;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+/* ================================
+   DIALOG
+================================ */
+
+#salaryDialog {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 400px;
+    max-width: 90vw;
+
+    padding: 30px;
+
+    border: 1px solid rgba(140, 155, 255, 0.35);
+    border-radius: 20px;
+
+    background: rgba(8, 10, 25, 0.94);
+
+    color: white;
+
+    box-shadow:
+        0 0 30px rgba(70, 90, 255, 0.2),
+        0 25px 70px rgba(0, 0, 0, 0.65);
+}
+
+#salaryDialog::backdrop {
+    background: rgba(0, 0, 0, 0.72);
+
+    backdrop-filter: blur(6px);
+}
+
+#salaryDialog h2 {
+    margin-bottom: 22px;
+}
+
+#salaryInput {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 9px;
+
+    outline: none;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: white;
+
+    font-size: 16px;
+}
+
+#salaryInput:focus {
+    border-color: #7887ff;
+
+    box-shadow:
+        0 0 10px rgba(100, 120, 255, 0.25);
+}
+
+.dialog-buttons {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+#saveSalaryBtn {
+    background: rgba(90, 105, 230, 0.35);
+}
+
+#saveSalaryBtn:hover {
+    background: rgba(100, 120, 255, 0.5);
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 800px) {
+
+    body {
+        padding: 100px 15px 60px;
+    }
+
+    .topbar {
+        left: 15px;
+        right: 15px;
+    }
+
+    .topbar h1 {
+        font-size: 18px;
+    }
+
+    .salary-card {
+        padding: 20px;
+    }
+
+    #salaryAmount {
+        font-size: 27px;
+    }
+
+    .financial-chart-card {
+        min-height: 400px;
+        padding: 18px;
+    }
+
+    .chart-content {
+        flex-direction: column;
+
+        gap: 25px;
+
+        min-height: auto;
+    }
+
+    .chart-container {
+        width: 330px;
+        height: 330px;
+    }
+
+    #financialChart {
+        width: 330px !important;
+        height: 330px !important;
+    }
+
+    .financial-summary {
+        flex-direction: row;
+
+        justify-content: center;
+
+        gap: 20px;
+
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    .summary-item {
+        flex: 1;
+
+        padding: 15px;
+    }
+
+    .summary-item strong {
+        font-size: 20px;
+    }
+}
+
+
+/* ================================
+   SMALL MOBILE
+================================ */
+
+@media (max-width: 500px) {
+
+    .salary-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    #editSalaryBtn {
+        width: 100%;
+    }
+
+    .financial-summary {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .summary-item {
+        width: 100%;
+    }
+
+    .chart-container {
+        width: 280px;
+        height: 280px;
+    }
+
+    #financialChart {
+        width: 280px !important;
+        height: 280px !important;
+    }
+}

@@ -1,0 +1,125 @@
+
+body{
+    /* background-image: url(/images/42.jpg); */
+    /* background-size: cover; */
+    background:
+        radial-gradient(circle at 20% 20%, rgba(80, 80, 255, 0.18), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(0, 220, 180, 0.12), transparent 35%),
+        linear-gradient(135deg, #050509, #0b0b12 45%, #050507);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 180px;
+}
+
+label{
+    color: white;
+    transform: scale(1.1);
+}
+
+.label1{
+    margin-left: -135px;
+}
+
+.label2{
+    margin-left: -110px;
+}
+
+.label3{
+    margin-left: -135px;
+}
+
+h1{
+    color: white;
+}
+
+p{
+    color: white;
+}
+
+input{
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.container{
+    transition: 0.35s;
+    transform: scale(1.1);
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 12px;
+    padding: 50px;
+    margin: 50px auto;
+    width: 500px;
+    background: rgba(40, 48, 97, 0.35);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* .container:hover{
+    transform: scale(1.1);
+    background-color: black ;
+    border-radius: 25px;
+
+    box-shadow: 0 0 30px rgba(9, 78, 225, 0.5);
+} */
+
+.toggle{
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid white;
+    border-radius: 15px ;
+    padding: 25px;
+}
+
+.toggle button{
+    background-color: gray;
+    color: black;
+    padding: 10px;
+    border-radius: 15px;
+    scale: 1.3;
+    padding-left: 50px;
+    padding-right: 50px;
+
+}
+
+.toggle button.active{
+    box-shadow:
+        0 0 10px #667eea,
+        0 0 25px #667eea,
+        0 0 40px rgba(102, 126, 234, 0.5);
+    background-color: rgba(128, 128, 128, 0.375);
+}
+
+#signupBtn{
+    transition: 0.3s;
+    background-color: gray;
+    color: black;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+#signupBtn:hover{
+    transform: scale(1.2);
+    color: black;
+    background-color: white;
+}
+
+#loginBtn{
+    transition: 0.3s;
+    background-color: gray;
+    color: black;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+#loginBtn:hover{
+    transform: scale(1.2);
+    color: black;
+    background-color: white;
+}

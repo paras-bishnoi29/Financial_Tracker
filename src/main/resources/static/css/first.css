@@ -1,0 +1,330 @@
+/* ================================
+   RESET
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   BODY
+================================ */
+
+body {
+    min-height: 100vh;
+/* 
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+
+    padding: 150px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(80, 80, 255, 0.18), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(0, 220, 180, 0.12), transparent 35%),
+        linear-gradient(135deg, #050509, #0b0b12 45%, #050507);
+
+    overflow: hidden;
+}
+
+
+/* ================================
+   BACKGROUND GLOW
+================================ */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: rgba(90, 80, 255, 0.08);
+
+    filter: blur(100px);
+
+    top: -200px;
+    left: -150px;
+
+    pointer-events: none;
+}
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    background: rgba(0, 220, 180, 0.06);
+
+    filter: blur(100px);
+
+    bottom: -200px;
+    right: -150px;
+
+    pointer-events: none;
+}
+
+
+/* ================================
+   MAIN CONTENT
+================================ */
+
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ================================
+   TITLE
+================================ */
+
+h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+
+    font-weight: 800;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #b9b9ff,
+        #ffffff
+    );
+
+    background-size: 200% auto;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation: titleGlow 5s ease infinite;
+}
+
+
+/* ================================
+   SUBTITLE
+================================ */
+
+h3 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+
+    font-weight: 500;
+
+    color: #b8b8c7;
+
+    margin-bottom: 25px;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* ================================
+   DESCRIPTION
+================================ */
+
+p {
+    max-width: 650px;
+
+    font-size: 1.05rem;
+
+    line-height: 1.7;
+
+    color: #858595;
+
+    margin-bottom: 35px;
+}
+
+
+/* ================================
+   GET STARTED BUTTON
+================================ */
+
+button {
+    position: relative;
+
+    padding: 14px 32px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: white;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+/* glow behind button */
+
+button::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -2px;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        90deg,
+        rgba(110, 100, 255, 0.7),
+        rgba(0, 220, 180, 0.7)
+    );
+
+    opacity: 0;
+
+    filter: blur(12px);
+
+    z-index: -1;
+
+    transition: opacity 0.3s ease;
+}
+
+
+button:hover {
+    transform: translateY(-4px);
+
+    background: rgba(255, 255, 255, 0.14);
+
+    border-color: rgba(255, 255, 255, 0.45);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+button:hover::before {
+    opacity: 0.7;
+}
+
+
+button:active {
+    transform: translateY(-1px);
+}
+
+
+/* ================================
+   ENTRANCE ANIMATION
+================================ */
+
+h1 {
+    animation:
+        fadeUp 0.8s ease forwards,
+        titleGlow 5s ease infinite;
+}
+
+h3 {
+    opacity: 0;
+
+    animation: fadeUp 0.8s ease 0.15s forwards;
+}
+
+p {
+    opacity: 0;
+
+    animation: fadeUp 0.8s ease 0.3s forwards;
+}
+
+button {
+    opacity: 0;
+
+    animation: fadeUp 0.8s ease 0.45s forwards;
+}
+
+
+/* ================================
+   ANIMATIONS
+================================ */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes titleGlow {
+
+    0% {
+        background-position: 0% center;
+    }
+
+    50% {
+        background-position: 100% center;
+    }
+
+    100% {
+        background-position: 0% center;
+    }
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 25px;
+        justify-content: flex-start;
+        align-items: center;
+
+        text-align: center;
+
+        padding-top: 20vh;
+    }
+
+    h1 {
+        letter-spacing: -2px;
+    }
+
+    p {
+        font-size: 0.95rem;
+    }
+
+    button {
+        padding: 13px 28px;
+    }
+}
