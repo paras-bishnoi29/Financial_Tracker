@@ -299,3 +299,9 @@ select:focus {
         width: 90%;
     }
 }
+
+.forgot{
+    text-decoration: none;
+    color: white;
+    margin-left: -170px;
+}

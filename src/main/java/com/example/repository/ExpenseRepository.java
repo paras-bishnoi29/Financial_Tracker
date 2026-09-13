@@ -176,14 +176,14 @@ public class ExpenseRepository {
     return result;
 }
 
-public double getCurrentMonthExpenses(int userId) {
+public double getMonthlyExpenses(int userId, int year, int month) {
 
     String query = """
             SELECT COALESCE(SUM(amount), 0)
             FROM expenses
             WHERE user_id = ?
-            AND YEAR(expense_date) = YEAR(CURDATE())
-            AND MONTH(expense_date) = MONTH(CURDATE())
+            AND YEAR(expense_date) = ?
+            AND MONTH(expense_date) = ?
             """;
 
     try (
@@ -192,6 +192,8 @@ public double getCurrentMonthExpenses(int userId) {
     ) {
 
         ps.setInt(1, userId);
+        ps.setInt(2, year);
+        ps.setInt(3, month);
 
         ResultSet rs = ps.executeQuery();
 

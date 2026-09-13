@@ -39,11 +39,13 @@ async function loadSalary() {
 // LOAD EXPENSES
 // ================================
 
-async function loadExpenses() {
-
+async function loadExpenses(month) {
     try {
+        const [year, monthNumber] = month.split("-");
 
-        const response = await fetch("/expense/monthly");
+        const response = await fetch(
+            `/expense/monthly?year=${year}&month=${Number(monthNumber)}`
+        );
 
         if (!response.ok) {
             throw new Error("Failed to load monthly expenses");
@@ -54,12 +56,24 @@ async function loadExpenses() {
         createFinancialChart(totalExpenses);
 
     } catch (error) {
-
         console.error("Error loading monthly expenses:", error);
-
     }
 }
 
+const salaryMonth = document.getElementById("salaryMonth");
+
+const today = new Date();
+
+const currentYear = today.getFullYear();
+const currentMonth = String(today.getMonth() + 1).padStart(2, "0");
+
+salaryMonth.value = `${currentYear}-${currentMonth}`;
+
+salaryMonth.addEventListener("change", function () {
+    if (salaryMonth.value) {
+        loadExpenses(salaryMonth.value);
+    }
+});
 
 // ================================
 // CREATE CHART
@@ -243,7 +257,7 @@ dashboardBtn.addEventListener("click", function(event){
 
 loadUser();
 loadSalary().then(() => {
-    loadExpenses();
+    loadExpenses(salaryMonth.value);
 });
 
 const logoutBtn = document.getElementById("logoutBtn");

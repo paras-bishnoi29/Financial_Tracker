@@ -18,7 +18,7 @@
         <div class="logos">
             <img src="images/expenses.png" alt="Logo">
             <h1>Finance Tracker</h1>
-    </div>
+        </div>
 
         <div class="links">
             <p id="userName">User</p>
@@ -51,27 +51,33 @@
 
         </section>
 
-
+        
+        
         <!-- Expense vs Salary -->
         <section class="financial-chart-card">
-
+            
+            <div class="month-selector">
+                <label for="salaryMonth">View Month:</label>
+                <input type="month" id="salaryMonth">
+            </div>
+            
             <h2>Salary vs Expenses</h2>
 
             <div class="chart-container">
 
                 <div class="financial-summary">
 
-        <div class="summary-item">
-            <span>Expenses</span>
-            <strong id="expenseAmount">₹0</strong>
-        </div>
+                    <div class="summary-item">
+                        <span>Expenses</span>
+                        <strong id="expenseAmount">₹0</strong>
+                    </div>
 
-        <div class="summary-item">
-            <span>Remaining Balance</span>
-            <strong id="remainingAmount">₹0</strong>
-        </div>
+                    <div class="summary-item">
+                        <span>Remaining Balance</span>
+                        <strong id="remainingAmount">₹0</strong>
+                    </div>
 
-    </div>
+                </div>
 
                 <canvas id="financialChart"></canvas>
             </div>
@@ -86,13 +92,7 @@
 
         <h2>Set Monthly Salary</h2>
 
-        <input
-            type="number"
-            id="salaryInput"
-            placeholder="Enter salary"
-            min="0"
-            step="0.01"
-        >
+        <input type="number" id="salaryInput" placeholder="Enter salary" min="0" step="0.01">
 
         <div class="dialog-buttons">
 

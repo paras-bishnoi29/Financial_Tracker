@@ -44,8 +44,8 @@ public class ExpenseService {
 
     }
 
-    public double getCurrentMonthExpenses(int userId) {
-    return repository.getCurrentMonthExpenses(userId);
-}
+    public double getMonthlyExpenses(int userId, int year, int month) {
+        return repository.getMonthlyExpenses(userId, year, month);
+    }
 
 }

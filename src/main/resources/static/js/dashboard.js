@@ -6,6 +6,8 @@ const submitBtn = document.getElementById("submitBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 const expenseDate = document.getElementById("expenseDate");
 const customDate = document.getElementById("customDate");
+const category = document.getElementById("category");
+const customCategory = document.getElementById("customCategory");
 
 addExpenseBtn.addEventListener("click", function () {
 
@@ -29,7 +31,16 @@ submitBtn.addEventListener("click", function () {
 
     const name = document.getElementById("name").value;
     const amount = document.getElementById("amount").value;
-    const category = document.getElementById("category").value;
+    const categorySelect = document.getElementById("category");
+    const customCategory = document.getElementById("customCategory");
+
+    let category;
+
+    if (categorySelect.value === "Other") {
+        category = customCategory.value.trim();
+    } else {
+        category = categorySelect.value;
+    }
 
     if (
         name.trim() == "" || amount == "" || category.trim() == ""
@@ -55,6 +66,13 @@ submitBtn.addEventListener("click", function () {
                 dialog.close();
 
                 clearForm();
+
+                const selectedDate = customDate.value;
+
+                if (selectedDate) {
+                    loadExpenses(selectedDate);
+                    loadCategoryChart(selectedDate);
+                }
 
                 loadExpenses();
 
@@ -91,7 +109,30 @@ submitBtn.addEventListener("click", function () {
 
 });
 
-async function loadExpenses(date = "") {
+category.addEventListener("change", function () {
+
+    if (category.value === "Other") {
+        customCategory.style.display = "block";
+        customCategory.focus();
+    } else {
+        customCategory.style.display = "none";
+        customCategory.value = "";
+    }
+
+});
+
+async function loadExpenses(date = null) {
+
+    // If no date was explicitly provided,
+    // use the currently selected filter
+    if (date === null) {
+
+        if (expenseDate.value === "custom") {
+            date = customDate.value;
+        } else {
+            date = "";
+        }
+    }
 
     let url = "/expense";
 
@@ -99,76 +140,109 @@ async function loadExpenses(date = "") {
         url += `?date=${date}`;
     }
 
-    const response = await fetch(url);
-    const expenses = await response.json();
+    try {
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error("Failed to load expenses");
+        }
+
+        const data = await response.json();
+
+        const tableBody = document.getElementById("tableBody");
+
+        tableBody.innerHTML = "";
+
+        data.forEach(function (expense) {
+
+            const row = document.createElement("tr");
+
+            const actionShell = document.createElement("td");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = expense.name;
+
+            const amountCell = document.createElement("td");
+            amountCell.textContent = expense.amount;
+
+            const categoryCell = document.createElement("td");
+            categoryCell.textContent = expense.category;
+
+            const deleteButton = document.createElement("button");
+            const editButton = document.createElement("button");
+
+            const editImg = document.createElement("img");
+            editImg.src = "/images/edit.png";
+            editImg.alt = "Edit Icon";
+
+            const editText = document.createTextNode("Edit");
+
+            const deleteImg = document.createElement("img");
+            deleteImg.src = "/images/delete.png";
+            deleteImg.alt = "Delete Icon";
+
+            const deleteText = document.createTextNode("Delete");
+
+            row.appendChild(nameCell);
+            row.appendChild(amountCell);
+            row.appendChild(categoryCell);
+
+            editButton.appendChild(editImg);
+            editButton.appendChild(editText);
+
+            deleteButton.appendChild(deleteImg);
+            deleteButton.appendChild(deleteText);
+
+            actionShell.appendChild(editButton);
+            actionShell.appendChild(deleteButton);
+
+            row.appendChild(actionShell);
+
+            tableBody.appendChild(row);
 
 
-            const tableBody = document.getElementById("tableBody");
-            tableBody.innerHTML = "";
-            expenses.forEach(function (expense) {
-                const row = document.createElement("tr");
-                const actionShell = document.createElement("td");
-                const nameCell = document.createElement("td");
-                nameCell.textContent = expense.name;
-                const amountCell = document.createElement("td");
-                amountCell.textContent = expense.amount;
-                const categoryCell = document.createElement("td");
-                categoryCell.textContent = expense.category;
-                const deleteButton = document.createElement("button");
-                const editButton = document.createElement("button");
+            // DELETE
+            deleteButton.addEventListener("click", function () {
 
-                const editImg = document.createElement("img");
-                editImg.src = "/images/edit.png";
-                editImg.alt = "Edit Icon"
-                const editText = document.createTextNode("Edit");
-                const deleteImg = document.createElement("img");
-                deleteImg.src = "/images/delete.png";
-                deleteImg.alt = "Delete Icon"
-                const deleteText = document.createTextNode("Delete");
+                fetch("/expense/" + expense.id, {
+                    method: "DELETE"
+                })
+                    .then(response => response.text())
+                    .then(data => {
 
-                row.appendChild(nameCell);
-                row.appendChild(amountCell);
-                row.appendChild(categoryCell);
+                        loadSummary();
+                        loadExpenses();
+                        loadCategoryChart();
 
-                editButton.appendChild(editImg);
-                editButton.appendChild(editText);
-                deleteButton.appendChild(deleteImg);
-                deleteButton.appendChild(deleteText);
-
-                actionShell.appendChild(editButton);
-                actionShell.appendChild(deleteButton);
-                row.appendChild(actionShell);
-
-                tableBody.appendChild(row);
-
-                deleteButton.addEventListener("click", function () {
-                    fetch("/expense/" + expense.id, {
-                        method: "DELETE"
-                    })
-                        .then(response => response.text())
-                        .then(data => {
-
-                            console.log(data);
-
-                            loadSummary();
-                            loadExpenses();
-                            loadCategoryChart();
-
-                        });
-                });
-
-                editButton.addEventListener("click", function () {
-                    document.getElementById("name").value = expense.name;
-                    document.getElementById("amount").value = expense.amount;
-                    document.getElementById("category").value = expense.category;
-
-                    editId = expense.id;
-                    submitBtn.textContent = "Update Expense";
-                    dialog.showModal();
-                });
+                    });
 
             });
-        };
+
+
+            // EDIT
+            editButton.addEventListener("click", function () {
+
+                document.getElementById("name").value = expense.name;
+                document.getElementById("amount").value = expense.amount;
+                document.getElementById("category").value = expense.category;
+
+                editId = expense.id;
+
+                submitBtn.textContent = "Update Expense";
+
+                dialog.showModal();
+
+            });
+
+        });
+
+    } catch (error) {
+
+        console.error("Error loading expenses:", error);
+
+    }
+}
 
 
 
@@ -251,16 +325,35 @@ function loadCategoryChart(date = "") {
 }
 
 
-expenseDate.addEventListener("change", () => {
+expenseDate.addEventListener("change", function () {
 
     if (expenseDate.value === "custom") {
+
         customDate.style.display = "block";
+
+        // Get today's date
+        const today = new Date();
+
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const day = String(today.getDate()).padStart(2, "0");
+
+        const todayString = `${year}-${month}-${day}`;
+
+        // Set today's date automatically
+        customDate.value = todayString;
+
+        // Load today's expenses
+        loadExpenses(todayString);
+        loadCategoryChart(todayString);
+
     } else {
+
         customDate.style.display = "none";
 
-        // All Dates selected
         loadExpenses();
         loadCategoryChart();
+
     }
 
 });
@@ -286,11 +379,13 @@ function clearForm() {
     document.getElementById("name").value = "";
     document.getElementById("amount").value = "";
     document.getElementById("category").value = "";
+    document.getElementById("customCategory").value = "";
+    document.getElementById("customCategory").style.display = "none";
 
 }
 
 const salaryBtn = document.getElementById("salaryBtn");
-salaryBtn.addEventListener("click", function(event){
+salaryBtn.addEventListener("click", function (event) {
     window.location.href = "/salary.html";
 })
 
@@ -302,13 +397,13 @@ logoutBtn.addEventListener("click", function (event) {
     fetch("/user/logout", {
         method: "POST"
     })
-    .then(response => response.text())
-    .then(data => {
+        .then(response => response.text())
+        .then(data => {
 
-        console.log(data);
+            console.log(data);
 
-        window.location.href = "/index.html";
+            window.location.href = "/index.html";
 
-    });
+        });
 
 });

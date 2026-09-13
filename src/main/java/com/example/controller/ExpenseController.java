@@ -111,15 +111,18 @@ public class ExpenseController {
     }
 
     @GetMapping("/expense/monthly")
-public double getCurrentMonthExpenses(HttpSession session) {
+    public double getMonthlyExpenses(
+            @RequestParam int year,
+            @RequestParam int month,
+            HttpSession session) {
 
-    Integer userId = (Integer) session.getAttribute("userId");
+        Integer userId = (Integer) session.getAttribute("userId");
 
-    if (userId == null) {
-        return 0;
+        if (userId == null) {
+            return 0;
+        }
+
+        return expenseService.getMonthlyExpenses(userId, year, month);
     }
-
-    return expenseService.getCurrentMonthExpenses(userId);
-}
 
 }
